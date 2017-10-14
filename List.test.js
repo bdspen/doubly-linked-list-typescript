@@ -64,7 +64,7 @@ describe('List', () => {
     });
 
     describe('List.push() into populated list 2+ items', () => {
-        
+
         const list = new List();
         const listLength = 19;
         var headData, tailData;
@@ -74,6 +74,7 @@ describe('List', () => {
             if (i === listLength) tailData = data;
             list.push(data);
         }
+
 
         it('List.head should be the correct data', () => {
             assert.equal(list.head.data, headData);
@@ -85,6 +86,24 @@ describe('List', () => {
 
         it('List.length should be the specified length', () => {
             assert.equal(list.length, listLength + 1);
+        });
+
+    });
+
+    describe('List.findIndex()', () => {
+
+        var dataSample;        
+        const list = new List();
+        const listLength = 19;
+        const targetIndex = listLength - 1;                
+        for (let i = 0; i <= listLength; i++){
+            let data = Math.random();
+            if(i === targetIndex) dataSample = data;
+            list.push(data);
+        }
+
+        it('should find the correct Index', () => {
+            assert.equal(list.findIndex(dataSample), targetIndex);
         });
 
     });
