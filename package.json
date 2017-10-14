@@ -1,0 +1,16 @@
+{
+  "name": "double_linked_list",
+  "version": "1.0.0",
+  "description": "Doubly linked list data structure",
+  "main": "doubleLinkedList.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha List.test.js",
+    "debug": "mocha List.test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "mocha": "^3.5.3"
+  }
+}
