@@ -16,6 +16,14 @@ export class List {
         return this.length === 0;
     }
 
+    toArray(): Array<any> {
+        var array: Array<any> = [];
+        for(let i = 0; i <= this.length; i++){
+            array.push(this.getData(i));
+        }
+        return array;
+    }
+
     push(data: any): void {
 
         const node = new Node(data);

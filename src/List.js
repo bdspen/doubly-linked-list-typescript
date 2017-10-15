@@ -10,6 +10,13 @@ var List = /** @class */ (function () {
     List.prototype.isEmpty = function () {
         return this.length === 0;
     };
+    List.prototype.toArray = function () {
+        var array = [];
+        for (var i = 0; i <= this.length; i++) {
+            array.push(this.getData(i));
+        }
+        return array;
+    };
     List.prototype.push = function (data) {
         var node = new Node_1.Node(data);
         if (this.isEmpty()) {
