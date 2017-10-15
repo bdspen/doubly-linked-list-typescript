@@ -4,12 +4,15 @@ var Node_1 = require("./Node");
 var List = /** @class */ (function () {
     function List() {
         this.length = 0;
-        this.head = null;
-        this.tail = null;
+        this.head = new Node_1.Node(null);
+        this.tail = new Node_1.Node(null);
     }
+    List.prototype.isEmpty = function () {
+        return this.length === 0;
+    };
     List.prototype.push = function (data) {
         var node = new Node_1.Node(data);
-        if (this.head === null) {
+        if (this.isEmpty()) {
             this.head = this.tail = node;
             this.length++;
         }
@@ -48,7 +51,6 @@ var List = /** @class */ (function () {
                 while (temp-- > i) {
                     tempNode = tempNode.prev;
                 }
-                console.log("resulting data: " + tempNode.data);
                 return tempNode.data;
             }
             else {
@@ -62,15 +64,14 @@ var List = /** @class */ (function () {
         }
     };
     List.prototype.removeByData = function (data) {
-        console.log("removing Node with data: " + data + "...");
         var tempNode;
         if (!data)
             return;
-        if (data === this.head) {
+        if (data === this.head.data) {
             this.head = this.head.next;
         }
-        if (data === this.tail) {
-            tempNode = this.head.prev;
+        if (data === this.tail.data) {
+            tempNode = this.tail.prev;
             this.tail = tempNode;
         }
         else {
@@ -78,13 +79,13 @@ var List = /** @class */ (function () {
             while (tempNode && tempNode.data !== data) {
                 tempNode = tempNode.next;
             }
-            tempNode.prev.next = tempNode.next;
-            tempNode.next.prev = tempNode.prev;
+            if (tempNode.hasPrev())
+                tempNode.prev.next = tempNode.next;
+            if (tempNode.hasNext())
+                tempNode.next.prev = tempNode.prev;
         }
-        tempNode = null;
         this.length--;
     };
     return List;
 }());
 exports.List = List;
-//# sourceMappingURL=List.js.map

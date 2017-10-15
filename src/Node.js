@@ -6,7 +6,12 @@ var Node = /** @class */ (function () {
         this.next = this.next;
         this.prev = this.prev;
     }
+    Node.prototype.hasPrev = function () {
+        return this.prev !== null;
+    };
+    Node.prototype.hasNext = function () {
+        return this.next !== null;
+    };
     return Node;
 }());
 exports.Node = Node;
-//# sourceMappingURL=Node.js.map

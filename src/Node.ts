@@ -9,5 +9,13 @@ export class Node {
         this.next = this.next;
         this.prev = this.prev;
     }
+    
+    hasPrev(): boolean {
+        return this.prev !== null;
+    }
+  
+    hasNext(): boolean {
+        return this.next !== null;
+    }
 
 }

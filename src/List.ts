@@ -12,11 +12,15 @@ export class List {
         this.tail = new Node(null);
     }
 
+    isEmpty() {
+        return this.length === 0;
+    }
+
     push(data: any): void {
 
-        var node = new Node(data);
+        const node = new Node(data);
 
-        if (this.head === null) {
+        if (this.isEmpty()) {
             this.head = this.tail = node;
             this.length++;
         }
@@ -63,7 +67,6 @@ export class List {
                 while (temp-- > i) {
                     tempNode = tempNode.prev
                 }
-                console.log("resulting data: " + tempNode.data);
                 return tempNode.data;
             }
             else {
@@ -80,14 +83,13 @@ export class List {
 
     removeByData(data: any): void {
 
-        console.log("removing Node with data: " + data + "...");
-        var tempNode;
+        var tempNode: Node;
         if (!data) return;
-        if (data === this.head) {
+        if (data === this.head.data) {
             this.head = this.head.next;
         }
-        if (data === this.tail) {
-            tempNode = this.head.prev;
+        if (data === this.tail.data) {
+            tempNode = this.tail.prev;
             this.tail = tempNode;
         }
         else {
@@ -95,10 +97,11 @@ export class List {
             while (tempNode && tempNode.data !== data) {
                 tempNode = tempNode.next;
             }
-            tempNode.prev.next = tempNode.next;
-            tempNode.next.prev = tempNode.prev;
+            if (tempNode.hasPrev())
+                tempNode.prev.next = tempNode.next;
+            if(tempNode.hasNext())
+                tempNode.next.prev = tempNode.prev;
         }
-        tempNode = null;
         this.length--;
 
     }

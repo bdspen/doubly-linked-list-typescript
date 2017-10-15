@@ -1,6 +1,6 @@
-const List = require("./List").List;
+const List = require("../src/List").List;
 const assert = require('assert');
-
+const TestList = require('./testList').TestList;
 /*
 
 1.should be able to instantiate a list
@@ -65,45 +65,71 @@ describe('List', () => {
 
     describe('List.push() into populated list 2+ items', () => {
 
-        const list = new List();
-        const listLength = 19;
-        var headData, tailData;
-        for (let i = 0; i <= listLength; i++){
-            let data = Math.random();
-            if (i === 0) headData = data;
-            if (i === listLength) tailData = data;
-            list.push(data);
-        }
-
+        const listLength = 2;
+        const testList = new TestList(listLength, listLength - 1);
 
         it('List.head should be the correct data', () => {
-            assert.equal(list.head.data, headData);
+            assert.equal(testList.list.head.data, testList.head.data);
         });
 
         it('List.tail should be the correct data', () => {
-            assert.equal(list.tail.data, tailData);
+            assert.equal(testList.list.tail.data, testList.tail.data);
         });
 
         it('List.length should be the specified length', () => {
-            assert.equal(list.length, listLength + 1);
+            assert.equal(testList.list.length, listLength);
         });
 
     });
 
     describe('List.findIndex()', () => {
 
-        var dataSample;        
-        const list = new List();
         const listLength = 19;
-        const targetIndex = listLength - 1;                
-        for (let i = 0; i <= listLength; i++){
-            let data = Math.random();
-            if(i === targetIndex) dataSample = data;
-            list.push(data);
-        }
+        const testList = new TestList(listLength, listLength - 1);
+        
+        it('should return -1 from a null input', () => {
+            assert.equal(testList.list.findIndex(null), -1);
+        });
+
+        it('should find the head as index 0', () => {
+            const dataIndex = testList.list.findIndex(testList.list.head.data);
+            assert.equal(dataIndex, 0);
+        });
+
+        it(`should find the tail as index list.length - 1 (${listLength - 1})`, () => {
+            const dataIndex = testList.list.findIndex(testList.list.tail.data);
+            assert.equal(dataIndex, listLength - 1);
+        });
 
         it('should find the correct Index', () => {
-            assert.equal(list.findIndex(dataSample), targetIndex);
+            const dataIndex = testList.list.findIndex(testList.dataSample);
+            assert.equal(dataIndex, listLength - 1);
+        });
+
+    });
+
+    describe('List.removeByData()', () => {
+        const listLength = 19;
+        const testList = new TestList(listLength, listLength - 1);
+
+        it('should return from a null input', () => {
+            assert.equal(testList.list.removeByData(null), null);
+            assert.equal(testList.list.length, listLength);
+        });
+
+        it('should remove the correct data', () => {
+            testList.list.removeByData(testList.dataSample);
+            const foundIndex = testList.list.findIndex(testList.dataSample);
+            assert.equal(foundIndex, -1);
+        });
+
+        it('should retain all data but the data removed', () => {
+            const retainedData = testList.asArray.filter((node, i) => testList.list.getData(i) === node);
+            assert.equal(retainedData[testList.list.length], undefined);
+        });
+
+        it('should decrease the list length', () => {
+            assert.equal(testList.list.length, listLength - 1);
         });
 
     });

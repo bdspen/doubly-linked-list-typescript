@@ -5,8 +5,8 @@
   "main": "doubleLinkedList.js",
   "scripts": {
     "build": "tsc",
-    "test": "mocha List.test.js",
-    "debug": "mocha List.test.js"
+    "test": "mocha test/List.test.js",
+    "debug": "mocha test/List.test.js"
   },
   "author": "",
   "license": "ISC",
