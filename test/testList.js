@@ -8,15 +8,10 @@ var TestList = /** @class */ (function () {
         this.listLength = listLength;
         this.sampleIndex = sampleIndex || 0;
         this.generateList();
-        this.listAsArray();
+        this.asArray = this.list.toArray();
         this.head = this.list.head;
         this.tail = this.list.tail;
     }
-    TestList.prototype.listAsArray = function () {
-        for (var i = 0; i <= this.list.length; i++) {
-            this.asArray.push(this.list.getData(i));
-        }
-    };
     TestList.prototype.generateList = function () {
         for (var i = 0; i < this.listLength; i++) {
             var data = Math.random();

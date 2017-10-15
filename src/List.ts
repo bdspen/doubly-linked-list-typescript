@@ -18,7 +18,7 @@ export class List {
 
     toArray(): Array<any> {
         var array: Array<any> = [];
-        for(let i = 0; i <= this.length; i++){
+        for(let i = 0, l = this.length; i < l; i++) {
             array.push(this.getData(i));
         }
         return array;

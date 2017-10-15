@@ -132,12 +132,31 @@ describe('List', () => {
         });
     });
 
-    describe('List.isEmpty(): true', () => {
+    describe('List.isEmpty(): false', () => {
         listLength = 5;
         testList = new TestList(listLength);
     
         it('should return false from a populated list', () => {
             assert.equal(testList.list.isEmpty(), false);
+        });
+    });
+
+    describe('List.toArray()', () => {
+        listLength = 5;
+        testList = new TestList(listLength);
+    
+        it('should return an array', () => {
+            const array = testList.list.toArray();
+            assert.equal(Array.isArray(array), true);
+        });
+
+        it('should retain the data from the linked list in the correct positions', () => {
+            const array = testList.list.toArray();
+            const dataRetained = array.filter((data, i) => {
+                return data === testList.list.getData(i);
+            }).length === listLength;
+                
+            assert.equal(dataRetained, true);
         });
     });
 

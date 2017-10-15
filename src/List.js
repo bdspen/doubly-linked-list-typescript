@@ -12,7 +12,7 @@ var List = /** @class */ (function () {
     };
     List.prototype.toArray = function () {
         var array = [];
-        for (var i = 0; i <= this.length; i++) {
+        for (var i = 0, l = this.length; i < l; i++) {
             array.push(this.getData(i));
         }
         return array;

@@ -18,15 +18,9 @@ export class TestList {
         this.listLength = listLength;
         this.sampleIndex = sampleIndex || 0;
         this.generateList();
-        this.listAsArray();
+        this.asArray = this.list.toArray();
         this.head = this.list.head;
         this.tail = this.list.tail;
-    }
-
-    private listAsArray(): void {
-        for(let i = 0; i <= this.list.length; i++){
-            this.asArray.push(this.list.getData(i));
-        }
     }
 
     generateList(): void {
