@@ -6,7 +6,7 @@ var TestList = /** @class */ (function () {
         this.list = new List_1.List();
         this.asArray = [];
         this.listLength = listLength;
-        this.sampleIndex = sampleIndex;
+        this.sampleIndex = sampleIndex || 0;
         this.generateList();
         this.listAsArray();
         this.head = this.list.head;

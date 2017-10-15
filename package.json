@@ -2,7 +2,7 @@
   "name": "doubly-linked-list-typescript",
   "version": "1.0.0",
   "description": "Doubly linked list data structure",
-  "main": "doubleLinkedList.js",
+  "main": "List.js",
   "scripts": {
     "build": "tsc",
     "test": "mocha test/List.test.js",

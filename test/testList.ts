@@ -16,7 +16,7 @@ export class TestList {
         this.list = new List();
         this.asArray = [];
         this.listLength = listLength;
-        this.sampleIndex = sampleIndex;
+        this.sampleIndex = sampleIndex || 0;
         this.generateList();
         this.listAsArray();
         this.head = this.list.head;

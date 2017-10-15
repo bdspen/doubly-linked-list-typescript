@@ -1,17 +1,6 @@
 const List = require("../src/List").List;
 const assert = require('assert');
 const TestList = require('./testList').TestList;
-/*
-
-1.should be able to instantiate a list
-2.should be able to add an item to a list
-3. should be able to remove an item from the list
-4. should be able to add multiple items to the list
-5. length should increase as list grows in size
-6. length should decrease as list shrinks in size
-7. should be able to find an item by index in list
-
-*/
 
 describe('List', () => {
 
@@ -132,6 +121,24 @@ describe('List', () => {
             assert.equal(testList.list.length, listLength - 1);
         });
 
+    });
+
+    describe('List.isEmpty(): true', () => {
+        var listLength = 0;
+        var testList = new TestList(listLength, listLength - 1);
+
+        it('should return true from an empty list', () => {
+            assert.equal(testList.list.isEmpty(), true);
+        });
+    });
+
+    describe('List.isEmpty(): true', () => {
+        listLength = 5;
+        testList = new TestList(listLength);
+    
+        it('should return false from a populated list', () => {
+            assert.equal(testList.list.isEmpty(), false);
+        });
     });
 
 });
