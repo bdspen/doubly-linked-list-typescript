@@ -15,6 +15,13 @@ const List = require('doubly-linked-list-typescript').List;
 const list = new List();
 ```
 
+### To Run Tests
+```bash
+npm test
+```
+
+## Methods
+
 ### Push
 Add an item to the end of the list.
 ```js
