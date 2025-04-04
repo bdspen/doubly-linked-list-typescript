@@ -1,116 +1,124 @@
 import { Node } from "./Node";
 
-export class List {
+export class List<T> {
 
     length: number;
-    head: Node;
-    tail: Node;
+    head: Node<T> | null;
+    tail: Node<T> | null;
 
     constructor() {
         this.length = 0;
-        this.head = new Node(null);
-        this.tail = new Node(null);
+        this.head = null;
+        this.tail = null;
     }
 
-    isEmpty() {
+    isEmpty(): boolean {
         return this.length === 0;
     }
 
-    toArray(): Array<any> {
-        var array: Array<any> = [];
-        for(let i = 0, l = this.length; i < l; i++) {
-            array.push(this.getData(i));
+    private _getNode(index: number): Node<T> | null {
+        if (index < 0 || index >= this.length) {
+            return null;
+        }
+
+        let currentNode: Node<T> | null;
+        if (index < this.length / 2) {
+            currentNode = this.head;
+            for (let i = 0; i < index; i++) {
+                currentNode = currentNode!.next;
+            }
+        } else {
+            currentNode = this.tail;
+            for (let i = this.length - 1; i > index; i--) {
+                currentNode = currentNode!.prev;
+            }
+        }
+        return currentNode;
+    }
+
+    toArray(): Array<T> {
+        const array: Array<T> = [];
+        let currentNode = this.head;
+        while (currentNode !== null) {
+            array.push(currentNode.data);
+            currentNode = currentNode.next;
         }
         return array;
     }
 
-    push(data: any): void {
-
+    push(data: T): void {
         const node = new Node(data);
 
         if (this.isEmpty()) {
-            this.head = this.tail = node;
-            this.length++;
-        }
-        else {
-            this.tail.next = node;
+            this.head = node;
+            this.tail = node;
+        } else {
+            this.tail!.next = node;
             node.prev = this.tail;
             this.tail = node;
-            this.length++;
         }
-
+        this.length++;
     }
 
-    findIndex(data: any): number {
+    findIndex(data: T): number {
+        let currentIndex = 0;
+        let currentNode = this.head;
 
-        if (data !== null) {
-            var tempIndex: number = 0;
-            var tempNode: Node = this.head;
-
-            while (tempIndex < this.length) {
-                if (tempNode.data === data) {
-                    return tempIndex;
-                }
-                else {
-                    tempNode = tempNode.next;
-                    tempIndex++;
-                }
+        while (currentNode !== null) {
+            if (currentNode.data === data) {
+                return currentIndex;
             }
+            currentNode = currentNode.next;
+            currentIndex++;
         }
         return -1;
-
     }
 
-    removeByIndex(i: number): void {
-        this.removeByData(this.getData(i));
+    removeByIndex(index: number): T | null {
+        const nodeToRemove = this._getNode(index);
+        if (!nodeToRemove) {
+            return null;
+        }
+        return this._removeNode(nodeToRemove);
     }
 
-    getData(i: number): any {
-
-        if (typeof i === "number" && i < this.length) {
-            var tempNode, temp;
-            if (i > (this.length / 2)) {
-                temp = this.length;
-                tempNode = this.tail;
-                while (temp-- > i) {
-                    tempNode = tempNode.prev
-                }
-                return tempNode.data;
-            }
-            else {
-                temp = 0;
-                tempNode = this.head;
-                while (temp++ < i) {
-                    tempNode = tempNode.next;
-                }
-                return tempNode.data;
-            }
-        }
-
+    getData(index: number): T | null {
+        const node = this._getNode(index);
+        return node ? node.data : null;
     }
 
-    removeByData(data: any): void {
-
-        var tempNode: Node;
-        if (!data) return;
-        if (data === this.head.data) {
-            this.head = this.head.next;
-        }
-        if (data === this.tail.data) {
-            tempNode = this.tail.prev;
-            this.tail = tempNode;
-        }
-        else {
-            tempNode = this.head;
-            while (tempNode && tempNode.data !== data) {
-                tempNode = tempNode.next;
+    removeByData(data: T): T | null {
+        let currentNode = this.head;
+        while (currentNode !== null) {
+            if (currentNode.data === data) {
+                return this._removeNode(currentNode);
             }
-            if (tempNode.hasPrev())
-                tempNode.prev.next = tempNode.next;
-            if(tempNode.hasNext())
-                tempNode.next.prev = tempNode.prev;
+            currentNode = currentNode.next;
         }
+        return null;
+    }
+
+    private _removeNode(nodeToRemove: Node<T>): T {
+        if (nodeToRemove === this.head) {
+            this.head = nodeToRemove.next;
+        }
+
+        if (nodeToRemove === this.tail) {
+            this.tail = nodeToRemove.prev;
+        }
+
+        if (nodeToRemove.prev !== null) {
+            nodeToRemove.prev.next = nodeToRemove.next;
+        }
+
+        if (nodeToRemove.next !== null) {
+            nodeToRemove.next.prev = nodeToRemove.prev;
+        }
+
+        nodeToRemove.prev = null;
+        nodeToRemove.next = null;
+
         this.length--;
-
+        return nodeToRemove.data;
     }
 }

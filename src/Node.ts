@@ -1,13 +1,13 @@
-export class Node {
+export class Node<T> {
 
-    data: any;
-    next: Node;
-    prev: Node;
+    data: T;
+    next: Node<T> | null;
+    prev: Node<T> | null;
 
-    constructor(data: any) {
+    constructor(data: T) {
         this.data = data;
-        this.next = this.next;
-        this.prev = this.prev;
+        this.next = null;
+        this.prev = null;
     }
     
     hasPrev(): boolean {
